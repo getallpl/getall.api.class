@@ -22,11 +22,11 @@ class GetAll
   
     public function __call($name, $arguments)
 	{
-        $request = array();
+        $REQ = array();
         $arguments["key"] = $this->api_key;
         $arguments["method"] = $name;
  
-        foreach($arguments as $k=>$v) $request[] = $k."=".urlencode($v);	
+        foreach($arguments as $k=>$v) $REQ[] = $k."=".urlencode($v);	
 		
         $user_agent = "Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)";
         if($ch = curl_init()) {
@@ -37,7 +37,7 @@ class GetAll
             curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
             curl_setopt($ch, CURLOPT_POST,1);
-            curl_setopt($ch, CURLOPT_POSTFIELDS,join("&",$request));
+            curl_setopt($ch, CURLOPT_POSTFIELDS,join("&",$REQ));
 	 
             if($result = curl_exec ($ch)) {		
 	
