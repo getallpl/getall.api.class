@@ -1,4 +1,4 @@
-GetAll.pl API
+#GetAll.pl API
 
 Klasa do obsugi API GetAll.pl
 
