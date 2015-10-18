@@ -21,12 +21,13 @@ class GetAll
     } // end __construct();
   
     public function __call($name, $arguments)
-	{
-        $REQ = array();
+	{ 
+	    $arguments = $arguments[0];
+        $request = array();
         $arguments["key"] = $this->api_key;
         $arguments["method"] = $name;
  
-        foreach($arguments as $k=>$v) $REQ[] = $k."=".urlencode($v);	
+        foreach($arguments as $k=>$v) $request[] = $k."=".urlencode($v);	
 		
         $user_agent = "Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)";
         if($ch = curl_init()) {
@@ -37,8 +38,8 @@ class GetAll
             curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
             curl_setopt($ch, CURLOPT_POST,1);
-            curl_setopt($ch, CURLOPT_POSTFIELDS,join("&",$REQ));
-	 
+            curl_setopt($ch, CURLOPT_POSTFIELDS,join("&",$request));
+	  
             if($result = curl_exec ($ch)) {		
 	
 		      return json_decode($result);
